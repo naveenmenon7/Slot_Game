@@ -8,6 +8,12 @@ public class SlotMachineController : MonoBehaviour
     [SerializeField] private ReelController _reel02;
     [SerializeField] private ReelController _reel03;
 
+    [Header("Payouts")]
+    [SerializeField] private int _sevenPayout = 100;
+    [SerializeField] private int _cherriesPayout = 50;
+    [SerializeField] private int _bellPayout = 30;
+    [SerializeField] private int _barPayout = 20;
+
     private bool _isSpinning;
 
     private void Update()
@@ -26,7 +32,6 @@ public class SlotMachineController : MonoBehaviour
         _reel02.Spin();
         _reel03.Spin();
 
-        // Wait until all three reels finish.
         while (_reel01.IsSpinning ||
                _reel02.IsSpinning ||
                _reel03.IsSpinning)
@@ -58,13 +63,36 @@ public class SlotMachineController : MonoBehaviour
             $"Results: {result01} | {result02} | {result03}"
         );
 
-        if (isWin)
-        {
-            Debug.Log("WIN!");
-        }
-        else
+        if (!isWin)
         {
             Debug.Log("NO WIN");
+            return;
+        }
+
+        int payout = GetPayout(result01);
+
+        Debug.Log($"WIN! Payout: {payout}");
+    }
+
+    private int GetPayout(
+        SlotSymbol.SymbolType symbol)
+    {
+        switch (symbol)
+        {
+            case SlotSymbol.SymbolType.Seven:
+                return _sevenPayout;
+
+            case SlotSymbol.SymbolType.Cherries:
+                return _cherriesPayout;
+
+            case SlotSymbol.SymbolType.Bell:
+                return _bellPayout;
+
+            case SlotSymbol.SymbolType.Bar:
+                return _barPayout;
+
+            default:
+                return 0;
         }
     }
 }
