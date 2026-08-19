@@ -16,12 +16,25 @@ public class SlotMachineController : MonoBehaviour
 
     private bool _isSpinning;
 
+    public bool IsSpinning => _isSpinning;
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !_isSpinning)
+        // Keep Space as a temporary testing option.
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            StartCoroutine(SpinRoutine());
+            StartSpin();
         }
+    }
+
+    public void StartSpin()
+    {
+        if (_isSpinning)
+        {
+            return;
+        }
+
+        StartCoroutine(SpinRoutine());
     }
 
     private IEnumerator SpinRoutine()
@@ -32,6 +45,7 @@ public class SlotMachineController : MonoBehaviour
         _reel02.Spin();
         _reel03.Spin();
 
+        // Wait until all reels have stopped.
         while (_reel01.IsSpinning ||
                _reel02.IsSpinning ||
                _reel03.IsSpinning)
