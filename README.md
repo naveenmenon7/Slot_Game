@@ -2,6 +2,12 @@
 
 
 
+Itch.io Link: https://naveenmenon.itch.io/slot-machine
+
+GitHub Link: https://github.com/naveenmenon7/Slot\_Game
+
+
+
 A small 2D slot machine game built in Unity 6.5 as part of a Unity game development assignment.
 
 
