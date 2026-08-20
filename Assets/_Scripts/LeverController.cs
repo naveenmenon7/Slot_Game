@@ -12,6 +12,11 @@ public class LeverController : MonoBehaviour
             return;
         }
 
+        if (!_slotMachineController.HasBet)
+        {
+            return;
+        }
+
         _animator.Play("LeverPull", 0, 0f);
 
         _slotMachineController.StartSpin();
